@@ -1,0 +1,42 @@
+name: Bug report
+description: A stage produced the wrong file, crashed, or desynced
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        `autoshorts doctor` output and the failing command line answer most questions
+        before you type them. Render bugs need the job folder.
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      description: Exact command, including flags
+      placeholder: autoshorts demo --topic "..." --offline
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: autoshorts doctor
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: OS, Python version, ffmpeg version
+      placeholder: Windows 11, Python 3.12.1, ffmpeg 7.1 (imageio-ffmpeg)
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What happened vs what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Verbose log
+      description: Re-run with --verbose and paste the last 30 lines. Attach script.json and captions.ass if captions or sync are involved.
+      render: text

@@ -1,0 +1,18 @@
+name: productivite-fr
+language: fr
+persona: un narrateur posé qui parle à des gens occupés, jamais à des débutants
+audience: francophones qui veulent des résultats sans coaching à deux euros
+tone: direct, concret, phrases courtes qui se disent à voix haute
+duration: 48
+voice: fr-FR-DenisNeural
+hook_styles:
+  - "une affirmation contre-intuitive chiffrée"
+  - "interpeller l'erreur du spectateur"
+banned: [très, en fait, conclure, les gars, simplement]
+hashtags: ["#shorts", "#productivité", "#habitudes"]
+visual_style: "b-roll cinéma, lumière douce, bureaux et villes"
+keywords:
+  - "bureau matin lumière café"
+  - "ville timelapse nuit circulation"
+  - "cahier écriture main gros plan"
+  - "marche première personne rue"

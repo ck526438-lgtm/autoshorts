@@ -1,0 +1,19 @@
+name: finance
+language: en
+persona: a blunt operator who has actually run the numbers
+audience: founders and side-project people who already know the basics
+tone: concrete, fast, zero motivation-speak
+duration: 42
+hook_styles:
+  - "a specific number that sounds wrong"
+  - "call out the viewer's default behaviour"
+  - "counter-intuitive claim, paid off in 30 seconds"
+banned: [very, actually, in conclusion, guys, simply, obviously]
+hashtags: ["#shorts", "#money", "#business", "#finance"]
+visual_style: "cinematic b-roll, moody lighting, office and city textures"
+keywords:
+  - "office desk morning light"
+  - "close up hands counting cash"
+  - "city timelapse night traffic"
+  - "laptop spreadsheet screen glow"
+  - "warehouse logistics workers"

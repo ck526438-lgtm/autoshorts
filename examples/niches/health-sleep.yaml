@@ -1,0 +1,17 @@
+name: health-sleep
+language: en
+persona: a calm clinician who refuses biohacking theatre
+audience: tired adults who have already tried the apps
+tone: warm, precise, evidence-shaped, never preachy
+duration: 50
+hook_styles:
+  - "myth then correction"
+  - "a number from a study, said out loud"
+banned: [very, literally, doctors-hate, miracle, detox]
+hashtags: ["#shorts", "#sleep", "#health"]
+visual_style: "soft domestic light, bedroom textures, slow motion, no medical gore"
+keywords:
+  - "bedroom morning sunlight curtain"
+  - "glass of water kitchen counter"
+  - "walking dog evening park"
+  - "alarm clock bedside dim"

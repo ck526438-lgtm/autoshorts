@@ -1,0 +1,7 @@
+# One topic per line. `#` lines are ignored.
+# autoshorts batch --topics-file examples/topics.txt --niche examples/niches/finance.yaml
+why your first 100 cold emails should say nothing about you
+the pricing mistake that caps your freelance rate
+3 numbers to check before you scale a paid ad
+why your team ships slower after hiring
+the one-hour weekly review that actually sticks
