@@ -8,6 +8,8 @@ output/
 cache/
 demo/
 test-out/
+smoke/
+showcase*/
 *.mp4
 *.wav
 *.mp3
@@ -33,4 +35,3 @@ htmlcov/
 .idea/
 .DS_Store
 Thumbs.db
-smoke/

@@ -4,6 +4,16 @@
 script, speaks it, picks the b-roll, burns word-by-word captions and renders the
 file — from one command, on your machine.
 
+<p align="center">
+  <a href="https://ck526438-lgtm.github.io/autoshorts/"><img src="docs/assets/hero.jpg" alt="Three frames from a rendered short with karaoke captions" width="100%"></a>
+</p>
+
+<p align="center">
+  <a href="https://ck526438-lgtm.github.io/autoshorts/"><strong>Live demo page</strong></a>
+  · <a href="docs/assets/demo.mp4">watch the 24-second render</a>
+  · <a href="#install">install</a>
+</p>
+
 ```bash
 git clone https://github.com/ck526438-lgtm/autoshorts && cd autoshorts
 pip install -e ".[voice,ffmpeg]"
@@ -29,6 +39,8 @@ $ autoshorts demo --topic "why your ads lose money"
 
 ## What it actually does
 
+![The five pipeline stages with their primary provider and fallback](docs/assets/pipeline.jpg)
+
 | Stage | Tool | Notes |
 | --- | --- | --- |
 | Script | OpenAI, Anthropic, Ollama, or offline template writer | Retention-first prompt, JSON schema, hard word budget |
@@ -38,11 +50,19 @@ $ autoshorts demo --topic "why your ads lose money"
 | Captions | libass `\kf` karaoke | Word fills highlight colour, line pops, safe-zone placement |
 | Render | one ffmpeg pass per clip + one final mix | Music bed is side-chain ducked under the voice |
 
+![Six sequential frames from one render](docs/assets/frames-strip.jpg)
+
+Every segment gets its own visual query, so the b-roll moves with the
+narration instead of looping one clip. The yellow-to-white fill is a single ASS
+event with `\kf` tags, not a stack of images.
+
 Every stage writes its artefacts into the job folder and is skipped if they
-already exist. Re-cut the captions without re-paying the LLM:
+already exist. Re-cut the captions without re-paying the LLM, or resume a
+folder by name alone:
 
 ```bash
 autoshorts run --job output/20261023-184402-why-your-ads-lose-money --force captions --force render
+autoshorts run --job output/20261023-184402-why-your-ads-lose-money
 ```
 
 ---
@@ -126,10 +146,18 @@ persona: a blunt operator who has actually run the numbers
 tone: concrete, fast, zero motivation-speak
 duration: 42
 hook_styles: ["a specific number that sounds wrong"]
+beats:
+  - "A thirty-day invoice is a thirty-day loan to your customer."
+  - "Churn is a leak. Fix the pipe before buying more water."
 banned: [very, actually, in conclusion]
 visual_style: "cinematic b-roll, moody lighting"
 keywords: ["office desk morning light", "city timelapse night traffic"]
 ```
+
+`beats:` is the bank the **offline** writer draws from when no API key is
+configured — without it you get the generic productivity lines shipped in
+`llm/template.py`, with it the no-key path still sounds like your channel.
+`{topic}` and `{seconds}` are substituted. A human still owns the claims.
 
 ```bash
 autoshorts niche init my-channel

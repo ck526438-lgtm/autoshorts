@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoShorts — a topic in, a subtitled 9:16 short out</title>
+<meta name="description" content="Open-source faceless-video factory: AI script, neural voiceover, royalty-free b-roll and Alex Hormozi-style karaoke captions assembled with ffmpeg. Runs with zero API keys.">
+<style>
+  :root{
+    --bg:#0b0d12; --panel:#12151d; --line:#242b38; --fg:#e8ecf4; --dim:#96a0b2; --accent:#facc15;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  header{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+  .kicker{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+  h1{font-size:clamp(34px,6vw,58px);line-height:1.08;margin:22px 0 14px;letter-spacing:-.02em}
+  h1 span{color:var(--accent)}
+  .lede{font-size:clamp(17px,2.2vw,21px);color:var(--dim);max-width:62ch}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .btn{background:var(--accent);color:#141106;font-weight:650;padding:13px 22px;border-radius:10px}
+  .btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line);font-weight:500}
+  section{padding:60px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 8px;letter-spacing:-.01em}
+  .sub{color:var(--dim);margin:0 0 30px;max-width:70ch}
+  .demo{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:36px;align-items:center}
+  .phone{border:1px solid var(--line);border-radius:26px;overflow:hidden;background:#000;box-shadow:0 30px 70px -30px #000}
+  video{display:block;width:100%;height:auto;aspect-ratio:9/16;background:#000}
+  figure{margin:0}
+  figcaption{color:var(--dim);font-size:14px;margin-top:14px}
+  img{max-width:100%;height:auto;border-radius:14px;border:1px solid var(--line);display:block}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:8px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card h3{margin:0 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--dim);font-size:15px}
+  .num{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:700;margin-right:8px}
+  pre{background:#080a0e;border:1px solid var(--line);border-radius:12px;padding:18px 20px;overflow:auto;font-size:14px;line-height:1.6}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code,li code,td code{background:#080a0e;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.92em}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+  ul{padding-left:20px}
+  li{margin:7px 0}
+  .warn{border-left:3px solid var(--accent);background:var(--panel);padding:16px 20px;border-radius:0 12px 12px 0;color:var(--dim)}
+  footer{padding:44px 0 70px;color:var(--dim);font-size:14px}
+  @media (max-width:760px){.demo{grid-template-columns:1fr}.phone{max-width:320px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="kicker">open source · MIT · python 3.10+</span>
+    <h1>A topic in.<br>A subtitled <span>9:16 short</span> out.</h1>
+    <p class="lede">AutoShorts is a faceless-video factory: it writes a retention-optimised script,
+    voices it with a neural TTS, pulls royalty-free b-roll, times every word and burns
+    karaoke captions with ffmpeg. One <code>.env</code>, five resumable stages, and it still
+    finishes the render with zero API keys.</p>
+    <div class="cta">
+      <a class="btn" href="https://github.com/ck526438-lgtm/autoshorts">View on GitHub</a>
+      <a class="btn ghost" href="#demo">Watch the 24-second demo</a>
+      <a class="btn ghost" href="#install">Install in 3 commands</a>
+    </div>
+  </div>
+</header>
+
+<section id="demo">
+  <div class="wrap">
+    <h2>The demo, unedited</h2>
+    <p class="sub">One command, no keys beyond a free edge-tts connection. Script, voice, b-roll,
+    word timings and the caption track were all produced by the pipeline — nothing was touched
+    in an editor. The six shots are stills sitting in <code>LOCAL_CLIPS_DIR</code> (generated with
+    an image model, then matched to each segment by file name); with a Pexels or Pixabay key the
+    same stage pulls real footage instead.</p>
+    <div class="demo">
+      <div>
+        <div class="phone"><video src="assets/demo.mp4" controls playsinline preload="metadata" poster="assets/frames/s1.jpg"></video></div>
+      </div>
+      <figure>
+        <img src="assets/hero.jpg" alt="Three frames from the rendered short showing karaoke captions">
+        <figcaption>Same render, three moments. The already-spoken words fill yellow, the word being
+        said is white, and the next words wait in outline — that is a single ASS event with
+        <code>\kf</code> tags, not a stack of images.</figcaption>
+      </figure>
+    </div>
+    <figure style="margin-top:38px">
+      <img src="assets/frames-strip.jpg" alt="Six sequential frames from the rendered short">
+      <figcaption>Every segment gets its own visual query, so the b-roll changes with the narration
+      instead of looping one clip.</figcaption>
+    </figure>
+    <figure style="margin-top:38px">
+      <img src="assets/offline.jpg" style="max-width:620px" alt="Two frames rendered with no API keys at all">
+      <figcaption>And the same command with <code>--offline</code>: template script, your OS voice,
+      generated art, captions still burned in. Ugly enough to be honest — it exists so a render
+      never dies because a network did.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Five stages, and each one degrades instead of dying</h2>
+    <p class="sub">This is the whole design bet: a pipeline that crashes because a key expired is a
+    pipeline you stop using. Every stage has a fallback that needs nothing from the network.</p>
+    <figure><img src="assets/pipeline.jpg" alt="Diagram of the five pipeline stages with primary and fallback providers"></figure>
+    <div class="grid">
+      <div class="card"><h3><span class="num">01</span>Script</h3><p>OpenAI, Anthropic or a local Ollama model, prompted for hooks and thought boundaries. No key? A template writer still produces a structured, on-brief script.</p></div>
+      <div class="card"><h3><span class="num">02</span>Voice</h3><p>edge-tts gives free neural voices <em>with word timings</em>. Otherwise OpenAI TTS, Piper, your OS voice, and finally silence so the render never stops.</p></div>
+      <div class="card"><h3><span class="num">03</span>B-roll</h3><p>Pexels then Pixabay by visual query, cached on disk. Falls back to your own <code>assets/clips</code> folder, then to generated art.</p></div>
+      <div class="card"><h3><span class="num">04</span>Captions</h3><p>Word clocks come from TTS boundaries, then faster-whisper, then a proportional estimate — all rescaled onto the measured take length.</p></div>
+      <div class="card"><h3><span class="num">05</span>Render</h3><p>ffmpeg: per-segment clips with Ken Burns, loudness-normalised voice, ducked music, concat, libass burn-in — or a soft <code>mov_text</code> track if libass is missing.</p></div>
+      <div class="card"><h3><span class="num">＋</span>Resumable</h3><p>Each stage writes its artefact into the job folder. Re-run with <code>--force captions</code> to restyle the subtitles without paying for the voice again.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Install</h2>
+    <p class="sub">Python 3.10 or newer. The <code>[ffmpeg]</code> extra fetches a static ffmpeg build,
+    which is the painless path on Windows.</p>
+<pre><code>git clone https://github.com/ck526438-lgtm/autoshorts.git
+cd autoshorts
+pip install -e ".[voice,ffmpeg]"
+
+cp .env.example .env      # everything in it is optional
+autoshorts doctor         # what it found, what it will fall back to
+autoshorts demo --topic "3 habits that quietly ruin your sleep"</code></pre>
+    <p class="sub" style="margin-top:26px">Output is a JSON summary plus a job folder:
+    <code>script.json</code>, <code>plan.json</code>, <code>captions.ass</code>, <code>work/</code> and
+    <code>final.mp4</code>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>More than one video at a time</h2>
+    <p class="sub">A niche file is the channel brief — persona, audience, tone, hook styles, banned
+    phrases, voice and duration. Batch mode feeds it a list of topics or an RSS feed and skips
+    whatever is already rendered.</p>
+<pre><code># one brief, reused for every video
+autoshorts run --topic "why protein at breakfast matters" --niche examples/niches/finance.yaml
+
+# a queue of topics, or an RSS feed of article titles
+autoshorts batch --topics-file examples/topics.txt --niche examples/niches/productivite-fr.yaml --count 5
+autoshorts batch --rss https://example.com/feed.xml --limit 3 --skip-existing
+
+# paste your own script and let the pipeline do voice, b-roll and captions
+autoshorts run --script my-script.md --duration 34</code></pre>
+    <table style="margin-top:34px">
+      <tr><th>Extra</th><th>What it buys you</th></tr>
+      <tr><td><code>[voice]</code></td><td>edge-tts — free neural voices with word-level timings. The recommended default.</td></tr>
+      <tr><td><code>[ffmpeg]</code></td><td>A static ffmpeg via imageio-ffmpeg, no PATH surgery.</td></tr>
+      <tr><td><code>[whisper]</code></td><td>faster-whisper alignment when your TTS engine reports no timings.</td></tr>
+      <tr><td><code>[piper]</code></td><td>Fully offline neural voices, model files included.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Limitations, said out loud</h2>
+    <ul>
+      <li>edge-tts is a free service with rate limits; heavy batch runs should use Piper or a paid key.</li>
+      <li>Stock search is only as good as the <code>visual_query</code> keywords — brand footage belongs in <code>assets/clips</code>.</li>
+      <li><code>--offline</code> uses your OS voice, and it sounds like it. It exists so a render never fails because a network did.</li>
+      <li>No face-cam, no product shots, no multi-track music sequencing. This is a narration-first tool.</li>
+    </ul>
+    <p class="warn" style="margin-top:26px">AutoShorts makes synthetic video cheap, which is exactly why it should stay
+    honest. TikTok, YouTube and Instagram all require labelling realistic AI-generated content, and
+    monetisation can be withheld for mass-produced duplicate material. Nothing here fact-checks your
+    script — a human has to read the claims before they reach a screen.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    MIT licence · <a href="https://github.com/ck526438-lgtm/autoshorts">github.com/ck526438-lgtm/autoshorts</a>
+    · <a href="https://github.com/ck526438-lgtm/autoshorts/blob/main/docs/TROUBLESHOOTING.md">troubleshooting</a>
+    · <a href="https://github.com/ck526438-lgtm/autoshorts/blob/main/CONTRIBUTING.md">contributing</a>
+  </div>
+</footer>
+
+</body>
+</html>
