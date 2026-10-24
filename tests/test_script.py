@@ -70,6 +70,19 @@ def test_offline_template_builds_hook_first_script():
     assert all(s.visual_query for s in script.segments)
 
 
+def test_offline_writer_prefers_the_niche_beat_bank():
+    niche = Niche(name="sleep", beats=(
+        "The phone does not stop because the room went dark.",
+        "Same wake time beats same bedtime, {topic} in {seconds} seconds.",
+        "Broken {nope} placeholder stays literal",
+    ))
+    script = template.build("3 habits that ruin your sleep", niche, Settings(), max_words=70)
+    body = " ".join(segment.text for segment in script.segments)
+    assert "The phone does not stop" in body
+    assert "in 45 seconds" in body
+    assert "{nope}" in body
+
+
 def test_from_text_reuses_user_script():
     script = template.from_text(
         "Most funnels leak at step two. Fix the form, not the traffic. "
@@ -96,6 +109,16 @@ def test_settings_overrides_and_niche(tmp_path: Path):
     assert settings.caption_language == "fr"
     assert settings.tts_provider == "silence"
     assert niche.banned == ("donc",)
+
+
+def test_local_clips_dir_is_read_from_the_environment(tmp_path: Path):
+    settings = build_settings(
+        env_file=tmp_path / "absent.env",
+        environ={"LOCAL_CLIPS_DIR": "my/footage", "STOCK_PRIORITY": "local,procedural"},
+    )
+    assert settings.local_clips_dir == Path("my/footage")
+    assert settings.stock_priority == ("local", "procedural")
+    assert build_settings(env_file=tmp_path / "absent.env", environ={}).local_clips_dir == Path("assets/clips")
 
 
 def test_words_per_minute_tracks_rate():

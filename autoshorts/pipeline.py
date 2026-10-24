@@ -170,10 +170,12 @@ class Job:
                    + ", ".join(f"{k}:{v}" for k, v in plan.by_provider.items()))
             for note in plan.notes[:3]:
                 log.debug(note)
-        self.paths.save(
-            {str(s.index): _media_dict(s.media) for s in script.segments if s.media},
-            self.paths.plan,
-        )
+            # Only touch plan.json when the shot list really changed: its mtime is
+            # what tells the render stage which clips are stale.
+            self.paths.save(
+                {str(s.index): _media_dict(s.media) for s in script.segments if s.media},
+                self.paths.plan,
+            )
 
     # ------------------------------------------------------------ stage 4
     def stage_captions(self, script: Script, duration: float) -> list[ass.Group]:
@@ -202,10 +204,12 @@ class Job:
 
         clip_paths: list[Path] = []
         total = len(script.segments)
+        planned = self.paths.plan.stat().st_mtime if self.paths.plan.is_file() else 0.0
+        redo = self.options.forced("clips")
         for position, segment in enumerate(script.segments, start=1):
             target = self.paths.segment_clip(segment.index)
             clip_paths.append(target)
-            if target.is_file() and not self.options.forced("clips"):
+            if target.is_file() and not redo and target.stat().st_mtime > planned:
                 log.step(position, total, f"clip {segment.index:02d} (cached)")
                 continue
             clips.render_clip(self.tools, segment, self.settings, target, self.encoder)

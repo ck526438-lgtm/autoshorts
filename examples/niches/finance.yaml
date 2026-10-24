@@ -8,6 +8,14 @@ hook_styles:
   - "a specific number that sounds wrong"
   - "call out the viewer's default behaviour"
   - "counter-intuitive claim, paid off in 30 seconds"
+# Picked verbatim by the offline writer when no LLM key is configured.
+beats:
+  - "Revenue is vanity. Cash on the bank date is the only opinion that counts."
+  - "A thirty-day invoice is a thirty-day loan to your customer."
+  - "The discount you gave away was your margin, not theirs."
+  - "Churn is a leak. Fix the pipe before buying more water."
+  - "One channel at one hundred dollars beats ten at ten."
+  - "Every subscription you forgot is somebody else's compounding revenue."
 banned: [very, actually, in conclusion, guys, simply, obviously]
 hashtags: ["#shorts", "#money", "#business", "#finance"]
 visual_style: "cinematic b-roll, moody lighting, office and city textures"

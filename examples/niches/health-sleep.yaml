@@ -7,6 +7,16 @@ duration: 50
 hook_styles:
   - "myth then correction"
   - "a number from a study, said out loud"
+# Used only by the offline writer when no LLM key is configured: it picks these
+# verbatim, so a human owns the claims. `{topic}` and `{seconds}` are available.
+beats:
+  - "Caffeine has a half-life. The four pm cup is still in your blood at eleven."
+  - "The phone does not stop because the room went dark."
+  - "A bed you work in stops feeling like a bed you sleep in."
+  - "Weekend catch-up buys you one night, not a week."
+  - "Dim the last hour. Not just the screen."
+  - "Same wake time beats same bedtime, every single week."
+  - "Alcohol puts you under. That is not the same as sleep."
 banned: [very, literally, doctors-hate, miracle, detox]
 hashtags: ["#shorts", "#sleep", "#health"]
 visual_style: "soft domestic light, bedroom textures, slow motion, no medical gore"

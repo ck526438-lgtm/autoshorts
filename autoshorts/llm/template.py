@@ -2,7 +2,8 @@
 
 Structure is real (hook / escalation / CTA) but the substance is generic on
 purpose: it exists so `pip install` → `autoshorts demo` works, and so runs
-continue when an API is down. Point `LLM_PROVIDER` at a model for actual copy.
+continue when an API is down. Point `LLM_PROVIDER` at a model for actual copy,
+or give the niche file its own `beats:` bank so the offline lines stay on-topic.
 """
 
 from __future__ import annotations
@@ -53,18 +54,30 @@ def _pick(options: list[str], topic: str, offset: int = 0) -> str:
     return options[int(digest[:8], 16) % len(options)]
 
 
+def _fill(line: str, topic: str, seconds: int = 0) -> str:
+    """Niche-authored lines are user input, so a stray brace must not crash a run."""
+    try:
+        return line.format(
+            topic=topic.lower(),
+            seconds=seconds,
+            Topic=topic[:1].upper() + topic[1:].lower(),
+        )
+    except (KeyError, IndexError, ValueError):
+        return line
+
+
 def build(topic: str, niche: Niche, settings: Settings, max_words: int) -> Script:
     rng = random.Random(f"{topic}|{niche.name}")
     seconds = settings.target_seconds
-    hook = _pick(_HOOKS, topic, 1).format(topic=topic.lower(), seconds=seconds, Topic=topic[:1].upper() + topic[1:].lower())
+    hook = _fill(_pick(_HOOKS, topic, 1), topic, seconds)
     beats: list[str] = [hook]
-    pool = list(_BEATS)
+    pool = list(niche.beats) or list(_BEATS)
     rng.shuffle(pool)
     for beat in pool:
         candidate = " ".join([*beats, beat])
         if T.word_count(candidate) > max_words:
             break
-        beats.append(beat.format(topic=topic.lower()))
+        beats.append(_fill(beat, topic, seconds))
         if len(beats) >= 6:
             break
     cta = _pick(_CTAS, topic, 2)

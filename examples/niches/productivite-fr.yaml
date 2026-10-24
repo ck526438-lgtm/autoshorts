@@ -8,6 +8,14 @@ voice: fr-FR-DenisNeural
 hook_styles:
   - "une affirmation contre-intuitive chiffrée"
   - "interpeller l'erreur du spectateur"
+# Repris tels quels par le rédacteur hors-ligne (sans clé IA configurée).
+beats:
+  - "Une tâche de deux minutes faite tout de suite vaut mieux que dix listées."
+  - "Ton agenda n'est pas une liste de souhaits."
+  - "Le multitâche, c'est payer deux fois le coût de bascule."
+  - "Une seule priorité par jour, écrite avant neuf heures."
+  - "Coupe une réunion, rends une après-midi."
+  - "Ce que tu ne mesures pas, tu le subis."
 banned: [très, en fait, conclure, les gars, simplement]
 hashtags: ["#shorts", "#productivité", "#habitudes"]
 visual_style: "b-roll cinéma, lumière douce, bureaux et villes"

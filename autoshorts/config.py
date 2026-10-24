@@ -127,6 +127,7 @@ class Niche:
     tone: str = "punchy, concrete, zero fluff"
     duration: int = 45
     hook_styles: tuple[str, ...] = ()
+    beats: tuple[str, ...] = ()
     banned: tuple[str, ...] = ("very", "actually", "in conclusion")
     hashtags: tuple[str, ...] = ()
     visual_style: str = "cinematic b-roll, moody lighting"
@@ -201,6 +202,7 @@ def build_settings(
         stock_priority=tuple(priority) or ("procedural",),
         stock_orientation=_s(env, "STOCK_ORIENTATION"),
         download_dir=Path(_s(env, "DOWNLOAD_DIR")),
+        local_clips_dir=Path(_s(env, "LOCAL_CLIPS_DIR")),
         width=_i(env, "VIDEO_WIDTH"),
         height=_i(env, "VIDEO_HEIGHT"),
         fps=_i(env, "VIDEO_FPS") or 30,

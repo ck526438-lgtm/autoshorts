@@ -70,7 +70,8 @@ def build_parser() -> argparse.ArgumentParser:
         p.add_argument("--job", help="resume/re-render an existing job folder")
         p.add_argument("--until", choices=STAGES, help="stop after this stage")
         p.add_argument("--force", action="append", default=[],
-                       help="redo a stage (script, voice, visuals, clips, render, *)")
+                       help="redo a stage (script, voice, visuals, clips, captions, render, *); "
+                            "visuals also re-cuts the clips it re-shot")
         p.add_argument("--count", type=int, help="render N angle variations of the topic")
         p.add_argument("--offline", action="store_true",
                        help="no network at all: template writer + system voice")
@@ -171,12 +172,12 @@ def _render(settings: Settings, options: Options, job: Path) -> dict[str, object
 
 
 def cmd_run(args, settings: Settings) -> int:
-    if not args.topic and not args.script:
-        log.error("need --topic or --script (see `autoshorts run --help`)")
+    if not (args.topic or args.script or args.job):
+        log.error("need --topic, --script or --job (see `autoshorts run --help`)")
         return 2
     from autoshorts.llm.prompt import topic_variations
 
-    topics = topic_variations(args.topic, args.count or 1) if args.topic else [args.topic]
+    topics = topic_variations(args.topic, args.count or 1) if args.topic else [args.topic or ""]
     root = Path(args.job) if getattr(args, "job", None) else Path(settings.output_dir)
     if getattr(args, "dry_run", False):
         print(json.dumps({
@@ -191,7 +192,7 @@ def cmd_run(args, settings: Settings) -> int:
         job = Path(args.job) if getattr(args, "job", None) else make_job_dir(
             root, topic, getattr(args, "name", "") or ""
         )
-        log.info(f"topic: {topic}")
+        log.info(f"topic: {topic}" if topic else f"resuming: {job}")
         reports.append(_render(settings, _options(args, topic), job))
     print(json.dumps(reports if len(reports) > 1 else reports[0], indent=2, ensure_ascii=False))
     return 0
@@ -246,12 +247,14 @@ def _already_rendered(root: Path, topic: str) -> bool:
 
 
 def cmd_demo(args, settings: Settings) -> int:
-    settings = replace(settings, llm_provider="template", stock_priority=("procedural",))
+    # The demo guarantees "no key needed", so only the writer is pinned; the
+    # b-roll chain stays whatever the user configured (default: generated art).
+    settings = replace(settings, llm_provider="template")
     if settings.tts_provider in ("openai", "piper"):
         settings = replace(settings, tts_provider="edge")
     args.topic = args.topic or DEMO_TOPIC
     args.count = args.count or 1
-    log.info("demo: offline writer + generated art, captions driven by the voice clock")
+    log.info("demo: no API key required — template script, your configured voice and b-roll chain")
     return cmd_run(args, settings)
 
 
@@ -333,6 +336,11 @@ duration: 42
 hook_styles:
   - "counter-intuitive claim with a number"
   - "call out the viewer's mistake"
+# Optional bank used by the offline writer when no API key is configured.
+# {topic} and {seconds} are substituted; a human still owns the claims.
+beats:
+  - "Do the boring version twice a week for six weeks."
+  - "Cut the step you are proudest of, it is usually the delay."
 banned: [very, actually, in conclusion, guys]
 hashtags: ["#shorts", "#business"]
 visual_style: "cinematic b-roll, moody lighting, shallow depth of field"
